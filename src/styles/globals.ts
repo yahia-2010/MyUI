@@ -1,6 +1,6 @@
 export default {
   colors: {
-    default: "#357FED",
+    default: "#5E9EFF",
     red: "rgb(239 68 68)",
     blue: "rgb(59 130 246)",
     green: "rgb(34 197 94)",
