@@ -1,4 +1,6 @@
 import React from "react";
+import { FaTrash } from "react-icons/fa";
+import { IoMdSend } from "react-icons/io";
 import Button, { ButtonProps } from "./Button";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
@@ -39,7 +41,7 @@ Disabled.args = {
 
 export const Elevated = Template.bind({});
 Elevated.args = {
-  elevation: true,
+  elevated: true,
 };
 
 export const Underlined = Template.bind({});
@@ -53,4 +55,14 @@ Custom.args = {
     letterSpacing: "1.5px",
     backgroundImage: "linear-gradient(to bottom right, purple, blue)",
   },
+};
+
+export const StartIcon = Template.bind({});
+StartIcon.args = {
+  startIcon: <FaTrash />,
+};
+
+export const EndIcon = Template.bind({});
+EndIcon.args = {
+  endIcon: <IoMdSend />,
 };

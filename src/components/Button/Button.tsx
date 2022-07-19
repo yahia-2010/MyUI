@@ -1,20 +1,21 @@
 import React from "react";
 import Size from "types/global";
-import Color from "types/global";
 import Rounded from "types/global";
 import Variant from "types/global";
 import globals from "../../styles/globals";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ButtonProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   size?: Size;
   rounded?: Rounded;
   variant?: Variant;
   bgColor?: string;
   textColor?: string;
-  elevation?: boolean;
+  elevated?: boolean;
   disabled?: boolean;
   underlined?: boolean;
   style?: React.CSSProperties;
@@ -28,20 +29,22 @@ const Button: React.FC<ButtonProps> = ({
   bgColor = "default",
   textColor = "black",
   disabled = false,
-  elevation = false,
+  elevated = false,
   rounded = "sm",
   variant = "primary",
   underlined = false,
   className = "",
+  startIcon,
+  endIcon,
   style = {},
 }) => {
   return (
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`${className} transition ${underlined ? "underline" : ""} ${
-        elevation ? "drop-shadow-md" : ""
-      } ${
+      className={`${className} flex justify-center items-center transition ${
+        underlined ? "underline" : ""
+      } ${elevated ? "drop-shadow-md" : ""} ${
         size === "sm"
           ? "text-sm py-1 px-2"
           : size === "lg"
@@ -77,7 +80,25 @@ const Button: React.FC<ButtonProps> = ({
             : "",
       }}
     >
-      {children}
+      {startIcon && (
+        <span
+          className={`${
+            size === "sm" ? "mr-1.5" : size === "lg" ? "mr-4" : "mr-3"
+          }`}
+        >
+          {startIcon}
+        </span>
+      )}
+      <span>{children || "Button"}</span>
+      {endIcon && (
+        <span
+          className={`${
+            size === "sm" ? "ml-1.5" : size === "lg" ? "ml-4" : "ml-3"
+          }`}
+        >
+          {endIcon}
+        </span>
+      )}
     </button>
   );
 };
