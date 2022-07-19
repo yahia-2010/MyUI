@@ -17,6 +17,8 @@ export interface ButtonProps {
   elevation?: boolean;
   disabled?: boolean;
   underlined?: boolean;
+  style?: React.CSSProperties;
+  className?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -24,18 +26,20 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   size = "md",
   bgColor = "default",
-  textColor = "white",
+  textColor = "black",
   disabled = false,
   elevation = false,
   rounded = "sm",
   variant = "primary",
   underlined = false,
+  className = "",
+  style = {},
 }) => {
   return (
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`transition ${underlined ? "underline" : ""} ${
+      className={`${className} transition ${underlined ? "underline" : ""} ${
         elevation ? "drop-shadow-md" : ""
       } ${
         size === "sm"
@@ -53,6 +57,7 @@ const Button: React.FC<ButtonProps> = ({
           : "rounded-[3px]"
       } disabled:opacity-70 hover:opacity-90 active:opacity-100`}
       style={{
+        ...style,
         backgroundColor:
           variant !== "primary"
             ? "transparent"
