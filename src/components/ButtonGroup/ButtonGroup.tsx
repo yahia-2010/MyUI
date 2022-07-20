@@ -1,27 +1,56 @@
-import React from "react";
+import React, { createContext } from "react";
+import { ButtonProps } from "../Button/Button";
 import Size from "types/global";
 import Rounded from "types/global";
 import Variant from "types/global";
-import globals from "styles/globals";
+import utils from "utils";
 
-export interface ButtonGroupProps extends ContainerProps {
+export const ButtonGroupContext = createContext(false as ButtonProps);
+
+export interface ButtonGroupProps extends ContainerProps, TextProps {
   disabled?: boolean;
   size?: Size;
   rounded?: Rounded;
   variant?: Variant;
   bgColor?: string;
+  spacing?: boolean;
 }
 
-const ButtonGroup: React.FC<ButtonGroupProps> = (props) => {
-  const { colors } = globals;
-
+const ButtonGroup: React.FC<ButtonGroupProps> = ({
+  children,
+  className,
+  style,
+  disabled = false,
+  size = "md",
+  rounded = "sm",
+  variant = "primary",
+  bgColor = "default",
+  textColor = "black",
+  underlined = false,
+  elevated = false,
+  spacing = true,
+}) => {
   return (
-    <div
-      className={`${props.className} overflow-hidden`}
-      style={{ ...props.style }}
+    <ButtonGroupContext.Provider
+      value={{
+        disabled,
+        variant,
+        underlined,
+        textColor,
+        bgColor,
+        size,
+        rounded,
+      }}
     >
-      {props.children}
-    </div>
+      <div
+        className={`${className ? className : ""} ${utils.setElevated(
+          elevated
+        )} flex ${spacing ? "gap-x-[1.5px]" : ""}`}
+        style={{ ...style }}
+      >
+        {children}
+      </div>
+    </ButtonGroupContext.Provider>
   );
 };
 
